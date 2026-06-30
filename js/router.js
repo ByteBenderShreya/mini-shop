@@ -6,28 +6,19 @@ class Router {
     }
 
     init() {
-        // Listen for hash changes
         window.addEventListener('hashchange', () => this.handleRoute());
-        // Handle initial load
         window.addEventListener('load', () => this.handleRoute());
-        // Handle navigation clicks
         this.setupNavLinks();
     }
 
     handleRoute() {
-        // Get path from hash, default to '/'
         const path = window.location.hash.slice(1) || '/';
 
-        // Find matching route
+        // ✅ YE LINE FIX KI HAI - path ke hisaab se route uthao
         const route = this.routes[path] || this.routes['/404'];
 
-        // Update active nav link
         this.updateActiveNav(path);
-
-        // Render the page
         document.getElementById('app').innerHTML = route.template;
-
-        // Run page-specific logic
         if (route.init) route.init();
     }
 
@@ -43,7 +34,6 @@ class Router {
     }
 
     setupNavLinks() {
-        // Prevent default anchor behavior for smooth routing
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
