@@ -15,7 +15,7 @@ class Router {
         const path = window.location.hash.slice(1) || '/';
 
         // ✅ YE LINE FIX KI HAI - path ke hisaab se route uthao
-        const route = this.routes[path] || this.routes['/404'];
+        const route = this.routes || this.routes['/404'];
 
         this.updateActiveNav(path);
         document.getElementById('app').innerHTML = route.template;
