@@ -70,9 +70,12 @@ const pages = {
     }
 };
 
-const router = new Router({
-    '/': pages.home,
-    '/products': pages.products,
-    '/about': pages.about,
-    '/404': pages['/404']  // ✅ YE BHI ADD KAR
-});
+// Pehle saare pages add karo
+router.addRoute('/', pages.home);
+router.addRoute('/products', pages.products);
+router.addRoute('/about', pages.about);
+router.addRoute('/404', pages['/404']); // ✅ Ye use karo
+
+router.init(); // ✅ Router sabse end mein chalu karo
+
+
