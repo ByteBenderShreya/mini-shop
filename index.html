@@ -3,113 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Shop</title>
+  <title>Mini Shop - Fashion Store</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f5f5f5; }
+    body { font-family: 'Poppins', sans-serif; background: #f8f9fa; }
     
-    /* Navbar */
     nav {
-      background: #2563eb;
-      color: white;
-      padding: 1rem 2rem;
+      background: white;
+      padding: 1rem 5%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
     }
-    nav h1 { font-size: 1.5rem; }
-    nav a { color: white; text-decoration: none; font-weight: bold; }
+    nav h1 { color: #ff3e6c; font-size: 1.8rem; }
+    nav a { color: #333; text-decoration: none; font-weight: 600; }
     
-    /* Products Grid */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    /* HERO SECTION - Yahi game changer hai */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
     }
+    .hero h2 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .btn-primary {
+      background: white;
+      color: #764ba2;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-primary:hover { transform: scale(1.05); }
+    
+    .container { max-width: 1200px; margin: 3rem auto; padding: 0 5%; }
+    .section-title { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
+    
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
     }
     
-    /* Product Card */
     .product-card {
       background: white;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      text-align: center;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
     .product-card img {
       width: 100%;
-      height: 200px;
+      height: 300px;
       object-fit: cover;
-      border-radius: 4px;
     }
-    .product-card h3 { margin: 0.5rem 0; }
-    .product-card p { color: #2563eb; font-weight: bold; font-size: 1.2rem; }
+    .product-info { padding: 1.2rem; }
+    .product-info h3 { margin-bottom: 0.5rem; }
+    .price { color: #ff3e6c; font-size: 1.4rem; font-weight: bold; }
     
-    /* Button */
     .btn {
-      background: #2563eb;
+      background: #ff3e6c;
       color: white;
       border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 4px;
+      padding: 12px;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 0.5rem;
       width: 100%;
-      font-weight: bold;
+      margin-top: 10px;
+      font-weight: 600;
     }
-    .btn:hover { background: #1d4ed8; }
+    .btn:hover { background: #e02d55; }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR - Cart Count Yaha Hai -->
   <nav>
-    <h1>🛍️ Mini Shop</h1>
+    <h1>MiniShop</h1>
     <a href="/cart">Cart (<span id="cart-count">0</span>)</a>
   </nav>
 
-  <!-- PRODUCTS -->
-  <div class="container">
+  <!-- HERO SECTION - PEHLE YE AAYEGA -->
+  <div class="hero">
+    <h2>Summer Sale Live Now! 🔥</h2>
+    <p>Upto 70% OFF on Branded Fashion</p>
+    <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView()">Shop Now</button>
+  </div>
+
+  <!-- PRODUCTS SECTION -->
+  <div class="container" id="products">
+    <h2 class="section-title">Trending Products</h2>
+    
     <div class="products">
       
-      <!-- PRODUCT 1 -->
       <div class="product-card">
-        <img src="https://via.placeholder.com/250x200" alt="T-Shirt">
-        <h3>Cotton T-Shirt</h3>
-        <p>₹599</p>
-        <button class="btn" onclick="addToCart(1, 'Cotton T-Shirt', 599, 'https://via.placeholder.com/250x200')">
-          Add to Cart
-        </button>
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" alt="T-Shirt">
+        <div class="product-info">
+          <h3>Cotton T-Shirt</h3>
+          <p class="price">₹599</p>
+          <button class="btn" onclick="addToCart(1, 'Cotton T-Shirt', 599, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400')">
+            Add to Cart
+          </button>
+        </div>
       </div>
 
-      <!-- PRODUCT 2 -->
       <div class="product-card">
-        <img src="https://via.placeholder.com/250x200" alt="Jeans">
-        <h3>Denim Jeans</h3>
-        <p>₹899</p>
-        <button class="btn" onclick="addToCart(2, 'Denim Jeans', 899, 'https://via.placeholder.com/250x200')">
-          Add to Cart
-        </button>
+        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400" alt="Jeans">
+        <div class="product-info">
+          <h3>Denim Jeans</h3>
+          <p class="price">₹1299</p>
+          <button class="btn" onclick="addToCart(2, 'Denim Jeans', 1299, 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400')">
+            Add to Cart
+          </button>
+        </div>
       </div>
 
-      <!-- PRODUCT 3 -->
       <div class="product-card">
-        <img src="https://via.placeholder.com/250x200" alt="Shoes">
-        <h3>Running Shoes</h3>
-        <p>₹799</p>
-        <button class="btn" onclick="addToCart(3, 'Running Shoes', 799, 'https://via.placeholder.com/250x200')">
-          Add to Cart
-        </button>
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" alt="Shoes">
+        <div class="product-info">
+          <h3>Running Shoes</h3>
+          <p class="price">₹1999</p>
+          <button class="btn" onclick="addToCart(3, 'Running Shoes', 1999, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400')">
+            Add to Cart
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- SCRIPT.JS LINK - Sabse Neeche -->
   <script src="script.js"></script>
 </body>
 </html>
