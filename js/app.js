@@ -1,3 +1,4 @@
+import { router } from './router.js';
 import { fetchProducts } from './api.js';
 
 const pages = {
