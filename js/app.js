@@ -73,13 +73,36 @@ const pages = {
 router.addRoute('/', () => {
     document.getElementById('app').innerHTML = pages.home.template;
 });
-
 router.addRoute('/products', async () => {
-    document.getElementById('app').innerHTML = pages.products.template;
-    const products = await fetchProducts(); // API call yahan
-    // products ko render karne ka code yahan
-});
+    // Step 1: Pehle Loading dikhao
+    document.getElementById('app').innerHTML = `
+        <div class="products-page">
+            <h1>Our Products</h1>
+            <div id="products-grid">Loading products...</div>
+        </div>
+    `;
 
+    // Step 2: API se data lao
+    const products = await fetchProducts();
+    
+    // Step 3: Loading hata ke products dikhao
+    const grid = document.getElementById('products-grid');
+    
+    if (!products || products.length === 0) {
+        grid.innerHTML = `<p>Products nahi mile yaar 😢</p>`;
+        return;
+    }
+
+    // Step 4: Saare products ka HTML banao
+    grid.innerHTML = products.map(product => `
+        <div class="product-card">
+            <img src="${product.image}" alt="${product.title}" />
+            <h3>${product.title}</h3>
+            <p>$${product.price}</p>
+            <button>Add to Cart</button>
+        </div>
+    `).join('');
+});
 router.addRoute('/about', () => {
     document.getElementById('app').innerHTML = pages.about.template;
 });
