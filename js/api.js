@@ -1,7 +1,11 @@
-// js/api.js
-const API_URL = 'https://fakestoreapi.com';
 
-export async function getProducts() {
-  const res = await fetch(`${API_URL}/products`);
-  return await res.json();
+export async function fetchProducts() {
+    try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        return [];
+    }
 }
