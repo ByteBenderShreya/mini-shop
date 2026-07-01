@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart - MiniShop</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+   .cart-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+   .cart-item { display: flex; gap: 20px; padding: 20px; background: white; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+   .cart-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 12px; }
+   .qty-btn { background: #f5f5f5; border: none; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; font-size: 18px; }
+   .remove-btn { background: #ff4444; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+   .total-box { background: white; padding: 30px; border-radius: 16px; text-align: right; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+   .checkout-btn { background: linear-gradient(135deg, #e91e63 0%, #d81b60 100%); color: white; border: none; padding: 16px 40px; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <nav>... tera navbar copy kar le yaha...</nav>
+
+  <div class="cart-container">
+    <h1>Your Cart 🛒</h1>
+    <div id="cart-items"></div>
+    <div class="total-box">
+      <h2>Total: ₹<span id="total-price">0</span></h2>
+      <button class="checkout-btn" onclick="alert('Checkout Coming Soon!')">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('minishop_cart')) || [];
+    const cartDiv = document.getElementById('cart-items');
+    const totalSpan = document.getElementById('total-price');
+
+    function renderCart() {
+      if(cart.length === 0) {
+        cartDiv.innerHTML = '<h2 style="text-align:center; color:#999; margin:100px 0;">Cart Khali Hai 😢<br><a href="index.html">Shopping Karo</a></h2>';
+        totalSpan.innerText = 0;
+        return;
+      }
+
+      cartDiv.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}">
+          <div style="flex:1;">
+            <h3>${item.name}</h3>
+            <p style="color:#e91e63; font-weight:700; font-size:1.2rem;">₹${item.price}</p>
+            <div style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              <span style="font-weight:600; font-size:1.1rem;">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+          </div>
+          <h3>₹${item.price * item.qty}</h3>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      totalSpan.innerText = total;
+    }
+
+    function changeQty(index, diff) {
+      cart[index].qty += diff;
+      if(cart[index].qty <= 0) cart.splice(index, 1);
+      localStorage.setItem('minishop_cart', JSON.stringify(cart));
+      renderCart();
+      updateCartCount();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('minishop_cart', JSON.stringify(cart));
+      renderCart();
+      updateCartCount();
+      showToast('Item Removed');
+    }
+
+    function updateCartCount() {
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      const cartCount = document.getElementById('cart-count');
+      if(cartCount) cartCount.innerText = totalQty;
+    }
+
+    function showToast(msg) {
+      alert(msg); // Simple alert for now
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
