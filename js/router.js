@@ -43,4 +43,4 @@ class Router {
     }
 }
 
-export default Router;
+window.router = router;
