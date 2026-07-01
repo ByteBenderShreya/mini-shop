@@ -1,8 +1,11 @@
 // Simple Hash-based Router for SPA
 class Router {
-    constructor(routes) {
-        this.routes = routes;
-        this.init();
+     constructor() {
+    this.routes = {};
+    this.addRoute('/', () => console.log('Home'));
+    this.addRoute('/404', () => console.log('404 Not Found')); // ✅ Ye line add kar
+    this.init();
+
     }
 
     init() {
