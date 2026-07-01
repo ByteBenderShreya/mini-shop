@@ -197,3 +197,7 @@ body {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(233, 30, 99, 0.15);
 }
+#cart-count {
+  display: inline-block;
+  transition: transform 0.3s;
+}
