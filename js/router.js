@@ -1,49 +1,26 @@
-// Simple Hash-based Router for SPA
+// js/router.js
 class Router {
-     constructor() {
-    this.routes = {};
-    this.addRoute('/', () => console.log('Home'));
-    this.addRoute('/404', () => console.log('404 Not Found')); // ✅ Ye line add kar
-    this.init();
+    constructor() {
+        this.routes = {};
+        this.init();
+    }
 
+    addRoute(path, callback) {
+        this.routes[path] = callback;
     }
 
     init() {
         window.addEventListener('hashchange', () => this.handleRoute());
-        window.addEventListener('load', () => this.handleRoute());
-        this.setupNavLinks();
+        this.handleRoute();
     }
 
     handleRoute() {
-        const path = window.location.hash.slice(1) || '/';
-
-        // ✅ YE LINE FIX KI HAI - path ke hisaab se route uthao
-        const route = this.routes || this.routes['/404'];
-
-        this.updateActiveNav(path);
-        document.getElementById('app').innerHTML = route.template;
-        if (route.init) route.init();
-    }
-
-    updateActiveNav(currentPath) {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const linkPath = link.getAttribute('href').slice(1);
-            if (linkPath === currentPath) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-    }
-
-    setupNavLinks() {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.location.hash = link.getAttribute('href');
-            });
-        });
+        const path = location.hash.slice(1) || '/';
+        const route = this.routes[path] || this.routes['/404'];
+        if (route) route();
+        else document.getElementById('app').innerHTML = '<h1>404 Not Found</h1>';
     }
 }
+
 const router = new Router();
-export { router } ;
+export { router };
