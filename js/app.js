@@ -70,12 +70,23 @@ const pages = {
     }
 };
 
-// Pehle saare pages add karo
-router.addRoute('/', pages.home);
-router.addRoute('/products', pages.products);
-router.addRoute('/about', pages.about);
-router.addRoute('/404', pages['/404']); // ✅ Ye use karo
+router.addRoute('/', () => {
+    document.getElementById('app').innerHTML = pages.home.template;
+});
 
-router.init(); // ✅ Router sabse end mein chalu karo
+router.addRoute('/products', async () => {
+    document.getElementById('app').innerHTML = pages.products.template;
+    const products = await fetchProducts(); // API call yahan
+    // products ko render karne ka code yahan
+});
 
+router.addRoute('/about', () => {
+    document.getElementById('app').innerHTML = pages.about.template;
+});
+
+router.addRoute('/404', () => {
+    document.getElementById('app').innerHTML = pages['/404'].template;
+});
+
+router.init();
 
