@@ -17,8 +17,11 @@ class Router {
     handleRoute() {
         const path = location.hash.slice(1) || '/';
         const route = this.routes[path] || this.routes['/404'];
-        if (route) route();
-        else document.getElementById('app').innerHTML = '<h1>404 Not Found</h1>';
+        if (route){
+            route();
+        }else{
+            document.getElementById('app').innerHTML = '<h1>404 Not Found</h1>';
+        }
     }
 }
 
