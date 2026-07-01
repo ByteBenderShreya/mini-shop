@@ -17,6 +17,17 @@ function addToCart(id, name, price, image) {
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCount();
   alert(`${name} added to cart! 🛒`);
+  function addToCart(id, name, price, img) {
+  // ... tera purana code ...
+  
+  // Ye naya code daal button animation ke liye
+  event.target.innerText = "Added ✓";
+  event.target.style.background = "#4caf50";
+  setTimeout(() => {
+    event.target.innerText = "Add to Cart";
+    event.target.style.background = "";
+  }, 1500);
+}
 }
 
 updateCartCount();
