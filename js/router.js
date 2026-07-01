@@ -2,7 +2,7 @@
 class Router {
     constructor() {
         this.routes = {};
-        this.init();
+        
     }
 
     addRoute(path, callback) {
