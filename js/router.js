@@ -42,5 +42,5 @@ class Router {
         });
     }
 }
-
+const router = new Router();
 window.router = router;
